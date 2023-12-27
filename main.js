@@ -4,7 +4,7 @@ var Srf = require('drachtio-srf') ;
 var srf = new Srf() ;
 const Mrf = require('drachtio-fsmrf');
 const mrf = new Mrf(srf) ;
-const logger = require('./app/logger') ;
+// const logger = require('./app/logger') ;
 var config = require('./app/config') ;
 
 const {handleInvite} = require('./app/handlers') ; 
@@ -14,23 +14,22 @@ var _ = require('lodash') ;
 
 const models = require('./app/models');
 
-logger.debug('using config: %s', JSON.stringify(config, null, 2)) ;
 srf.connect(config.drachtioServer) ;
 
 srf.on('connect', function(err, hostport) {
-  logger.info(`connected to drachtio listening on ${hostport}`);
+  console.log(`connected to drachtio listening on ${hostport}`);
 }) 
 .on('error', function(err){
-  logger.error(err, 'Error connecting to drachtio') ;
+    console.log(err, 'Error connecting to drachtio') ;
 }) ;
 
 
 mrf.connect({address: '127.0.0.1', port: 8021, secret: 'JambonzR0ck$'})
   .then((mediaserver) => {
-    logger.info('connected to mediaserver');
+    console.log('connected to mediaserver');
   })
   .catch ((err) => {
-    logger.error(err, 'Error connecting to mediaserver') ;
+    console.log(err, 'Error connecting to mediaserver') ;
   });
 
 
